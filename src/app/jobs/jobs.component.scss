@@ -26,8 +26,14 @@ table {
     width: 100%;
   }
   
-  .mat-form-field {
+.mat-form-field {
     font-size: 14px;
     width: 100%;
-  }
+}
+
+.mat-header-cell{
+    font-size: 16px;
+    color: #1771b9;
+    font-weight: bolder;
+}
 

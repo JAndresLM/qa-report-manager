@@ -16,54 +16,55 @@
 
           <mat-table [dataSource]="dataSource" matSort>
         
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+            <!-- status Column -->
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                  <a class="uk-icon-button blue-icon"></a>
+              </mat-cell>
             </ng-container>
         
-            <!-- Progress Column -->
-            <ng-container matColumnDef="title">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> title </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.title}}% </mat-cell>
+            <!-- Job Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Job Name </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <a a routerLink="/jobs/1/builds">{{row.title}}</a>
+              </mat-cell>
             </ng-container>
         
-            <!-- Name Column -->
-            <ng-container matColumnDef="description">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> description </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+            <!-- Last Execution Column -->
+            <ng-container matColumnDef="last_execution">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Last Execution </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.release_date}} </mat-cell>
             </ng-container>
         
-            <!-- Color Column -->
-            <ng-container matColumnDef="director">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> director </mat-header-cell>
+            <!-- Duration Column -->
+            <ng-container matColumnDef="duration">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
               <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.director}} </mat-cell>
             </ng-container>
+
+            <!-- Results Column -->
+            <ng-container matColumnDef="results">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Test Results </mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.director}} </mat-cell>
+              </ng-container>
+
+              <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let row" [style.color]="row.color">
+                    <a a routerLink="/jobs/1/builds" class="uk-button uk-button-text">See Job's History</a>
+                </mat-cell>
+              </ng-container>
         
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;">
             </mat-row>
           </mat-table>
         
-          <mat-paginator [pageSizeOptions]="[1, 10, 25, 100]"></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
     
   </div>
 </div>
-
-
-<div *ngFor="let job of jobs$" class="">
-    <table class="uk-table uk-table-justify uk-table-middle">
-      <tbody>
-        <tr>
-          <td class="width-10"><a class="uk-icon-button blue-icon"></a></td>
-          <td class="width-45"><a routerLink="/jobs/1/builds">{{ job.title }}</a></td>
-          <td class="width-15">
-            <p><span uk-icon="icon: calendar;"></span> 12/11/{{ job.release_date }}</p>
-          </td>
-          <td class="width-15">{{ job.rt_score }}/{{ job.rt_score }}</td>
-          <td class="width-15"><a a routerLink="/jobs/1/builds" class="uk-button uk-button-text">See Builds</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
