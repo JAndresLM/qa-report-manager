@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+    margin: 0;
+    background: #F2F2F2;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#container {
+
+   #content {
+       padding: 30px 50px;
+   }
+}
+
+a.blue-icon{
+    background-color: #1771b9;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.width-100{
+    width: 100%;
+}
