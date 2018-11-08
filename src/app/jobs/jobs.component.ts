@@ -10,7 +10,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 
 export class JobsComponent implements OnInit {
-  displayedColumns = ['status', 'name', 'last_execution', 'duration', 'results', 'actions'];
+  displayedColumns = ['status', 'title', 'last_execution', 'duration', 'results', 'actions'];
   dataSource: MatTableDataSource<jobsData>;
 
   jobs$: Object;
