@@ -1,19 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {
-  DataService
-} from '../data.service';
-import {
-  MatPaginator,
-  MatSort,
-  MatTableDataSource
-} from '@angular/material';
-import {
-  Chart
-} from 'chart.js';
+import {Component,OnInit,ViewChild} from '@angular/core';
+import {DataService} from '../data.service';
+import {MatPaginator,MatSort,MatTableDataSource} from '@angular/material';
+import {Chart} from 'chart.js';
 
 @Component({
   selector: 'app-builds',
@@ -61,6 +49,7 @@ export class BuildsComponent implements OnInit {
   buildsListData: buildsData[] = [];
 
   chart = [];
+  newPassing = [50, 80, 75, 98, 33, 45, 75, 40, 11, 75, 44, 37]
 
   constructor(private data: DataService) {}
 
@@ -97,6 +86,11 @@ export class BuildsComponent implements OnInit {
     return isDisplayed;
   }
 
+  updateGraph(){
+    this.chart.data.datasets[0].data = this.newPassing;
+    this.chart.update();
+  }
+
   createChart() {
     var labels = ["Nov 01", "Nov 02", "Nov 03", "Nov 04", "Nov 05", "Nov 06", "Nov 07", "Nov 08", "Nov 09", "Nov 10", "Nov 11", "Nov 12"]
     var passing = [40, 90, 70, 98, 63, 45, 85, 30, 21, 85, 94, 67]
@@ -107,8 +101,8 @@ export class BuildsComponent implements OnInit {
         datasets: [{
           label: "Pass Rate Percentage (%)",
           data: passing,
-          borderColor: "#e67fb9",
-          backgroundColor: "#f7d4e5",
+          borderColor: "#339966",
+          backgroundColor: "#9fdfbf",
           fill: true
         }, ]
       },

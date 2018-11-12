@@ -4,7 +4,7 @@
       <div class="uk-width-1-3">
         <mat-form-field class="width-50">
           <mat-select placeholder="Display data for">
-            <mat-option *ngFor="let timeLapse of timeLapses" [value]="timeLapse.value">
+            <mat-option *ngFor="let timeLapse of timeLapses" [value]="timeLapse.value" (click)="updateGraph()">
               {{timeLapse.viewValue}}
             </mat-option>
           </mat-select>
