@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-body {
+html, body {
     margin: 0;
     background: #F2F2F2;
     font-family: 'Montserrat', sans-serif;
@@ -14,16 +14,37 @@ body {
    }
 }
 
-a.blue-icon{
+a.blue-icon, a.blue-icon:hover{
     background-color: #1771b9;
+}
+
+a.custom-link{
+    color:rgba(0,0,0,.87);
+}
+
+a.custom-link:hover{
+    color:#1771b9;
+    text-decoration: none;
 }
 
 .text-center{
     text-align: center;
 }
 
+.mat-form-field.mat-focused .mat-form-field-label{
+    color:#1771b9;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color:#1771b9;
+}
+
 .width-100{
     width: 100%;
+}
+
+.width-50{
+    width: 50%;
 }
 
 /* Table Structure */

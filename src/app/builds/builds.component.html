@@ -2,20 +2,13 @@
   <div class="uk-card-header">
     <div class="" uk-grid>
       <div class="uk-width-1-3">
-        <div uk-form-custom="target: > * > span:first-child">
-          <select>
-            <option value="">All Time</option>
-            <option value="1">Last Year</option>
-            <option value="2">Last Month</option>
-            <option value="3">Last Week</option>
-            <option value="4">Last Day</option>
-            <option value="4">Today</option>
-          </select>
-          <button class="uk-button uk-button-default" type="button" tabindex="-1">
-            <span></span>
-            <span uk-icon="icon: chevron-down"></span>
-          </button>
-        </div>
+        <mat-form-field class="width-50">
+          <mat-select placeholder="Display data for">
+            <mat-option *ngFor="let timeLapse of timeLapses" [value]="timeLapse.value">
+              {{timeLapse.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
       <div class="uk-width-1-3">
         <mat-form-field>
@@ -23,21 +16,19 @@
         </mat-form-field>
       </div>
       <div class="uk-width-1-3 uk-text-right">
-        <div uk-form-custom="target: > * > span:first-child">
-          <select>
-            <option value="">Table View</option>
-            <option value="1">Graph View</option>
-          </select>
-          <button class="uk-button uk-button-default" type="button" tabindex="-1">
-            <span></span>
-            <span uk-icon="icon: chevron-down"></span>
-          </button>
-        </div>
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+          <mat-button-toggle value="table" (click)="selectTableView()" [ngClass]="{'selected-toggle': !isGraphDisplayed()}">
+            <mat-icon>list</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="graph" (click)="selectGraphView()" [ngClass]="{'selected-toggle': isGraphDisplayed()}">
+            <mat-icon>timeline</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
   </div>
   <div class="uk-card-body">
-    <div class="example-container">
+    <div class="example-container" [hidden]="isGraphDisplayed()">
 
       <mat-table [dataSource]="dataSource" matSort>
         displayedColumns = ['status', 'build_number', 'date', 'duration', 'total_tcs', 'passed_tcs', 'failed_tcs',
@@ -108,6 +99,11 @@
       </mat-table>
 
       <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+    <div class="example-container" [hidden]="!isGraphDisplayed()">
+        <div *ngIf="chart">
+          <canvas id="canvas">{{ chart }}</canvas>
+        </div>
     </div>
   </div>
 </div>

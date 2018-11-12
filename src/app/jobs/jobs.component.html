@@ -25,7 +25,9 @@
         <!-- Job Name Column -->
         <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Job Name </mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.title}}</mat-cell>
+          <mat-cell *matCellDef="let row">
+              <a class="custom-link" routerLink="jobs/{{row.title}}/builds">{{row.title}}</a>
+          </mat-cell>
         </ng-container>
 
         <!-- Last Execution Column -->
@@ -37,22 +39,24 @@
         <!-- Duration Column -->
         <ng-container matColumnDef="duration">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.director}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.director}} </mat-cell>
         </ng-container>
 
         <!-- Results Column -->
         <ng-container matColumnDef="results">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Test Results </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.director}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.director}} </mat-cell>
         </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color">{{row.title}}</mat-cell>
+          <mat-cell *matCellDef="let row">
+              <a class="uk-icon-button" routerLink="jobs/{{row.title}}/builds" uk-icon="forward"></a>
+          </mat-cell>
         </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>

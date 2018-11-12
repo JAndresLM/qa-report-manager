@@ -1,30 +1,19 @@
 div.border-bottom-with-shadow{
     background-color: white;
     border-bottom: 1px;
-    box-shadow: 1px 1px 3px #666;
-
-    nav{
-        background-color: white;
-
-        a.uk-logo{
-            color: #1771b9;
-            font-weight: bolder;
-        }
-
-        div.uk-navbar-center{
-            input{
-                width: 300px;
-                color: gray;
-            }
-        }
-    }   
+    box-shadow: 1px 1px 3px #666; 
 }
-
 
 mat-toolbar{
     background-color: #1771b9;
     color:white;
 }
+
+mat-toolbar a, mat-toolbar a:hover{
+    color:white;
+    text-decoration: none;
+}
+
 
 .content-align-right{
     flex: 1 1 auto;
