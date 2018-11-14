@@ -6,3 +6,16 @@
 #canvas{
     height: 100px;
 }
+
+mat-cell, mat-footer-cell, mat-header-cell{
+    flex:none;
+    width: 11%;
+}
+
+.mat-column-status{
+    width: 7%;
+}
+
+.mat-column-reports{
+    width: 13%;
+}

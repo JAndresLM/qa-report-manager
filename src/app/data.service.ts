@@ -16,6 +16,7 @@ export class DataService {
   }
 
   getJobs2(){
+    //http://192.168.189.41:8080/job/
     return this.http.get<jobsData[]>('https://ghibliapi.herokuapp.com/films');
   }
 
