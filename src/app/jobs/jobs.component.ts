@@ -10,7 +10,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 
 export class JobsComponent implements OnInit {
-  displayedColumns = ['status', 'title', 'last_execution', 'duration', 'results', 'actions'];
+  displayedColumns = ['color', 'name', 'date', 'duration', 'results', 'actions'];
   dataSource: MatTableDataSource<jobsData>;
 
   jobs$: Object;
@@ -22,7 +22,7 @@ export class JobsComponent implements OnInit {
   constructor(private data: DataService) {}
 
   ngOnInit() {
-    this.data.getJobs2().subscribe(
+    this.data.getJobs().subscribe(
       data => {
         this.jobs$ = data;
         this.jobsListData = data;
@@ -37,6 +37,13 @@ export class JobsComponent implements OnInit {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+  }
+
+  toHHMM(totalSeconds){
+    var hours = Math.floor(totalSeconds / 1000 / 60 / 60);
+    var minutes = Math.floor(totalSeconds / 1000 / 60 % 60);
+    var content = hours + " hr - " + minutes + " min";
+   	return content;
   }
 
 }

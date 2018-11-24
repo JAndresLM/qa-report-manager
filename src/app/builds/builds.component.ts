@@ -1,5 +1,7 @@
 import {Component,OnInit,ViewChild} from '@angular/core';
 import {DataService} from '../data.service';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from "@angular/router";
 import {MatPaginator,MatSort,MatTableDataSource} from '@angular/material';
 import {Chart} from 'chart.js';
 
@@ -11,7 +13,7 @@ import {Chart} from 'chart.js';
 
 export class BuildsComponent implements OnInit {
 
-  displayedColumns = ['status', 'build_number', 'date', 'duration', 'total_tcs', 'passed_tcs', 'failed_tcs', 'pass_rate', 'reports'];
+  displayedColumns = ['status', 'name', 'date', 'duration', 'totalTests', 'passed_tcs', 'failedTests', 'pass_rate', 'reports'];
   dataSource: MatTableDataSource < buildsData > ;
 
   timeLapses: timeLapse[] = [{
@@ -46,15 +48,18 @@ export class BuildsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   builds$: Object;
+  job$: Object;
   buildsListData: buildsData[] = [];
 
   chart = [];
   newPassing = [50, 80, 75, 98, 33, 45, 75, 40, 11, 75, 44, 37]
 
-  constructor(private data: DataService) {}
+  constructor(private route: ActivatedRoute, private data: DataService) {
+    this.route.params.subscribe( params => this.job$ = params.id );
+  }
 
   ngOnInit() {
-    this.data.getBuilds2().subscribe(
+    this.data.getBuilds(this.job$).subscribe(
       data => {
         this.builds$ = data
         this.buildsListData = data;
@@ -84,11 +89,6 @@ export class BuildsComponent implements OnInit {
     var isDisplayed = this.group_value === "graph";
     //console.log(isDisplayed);
     return isDisplayed;
-  }
-
-  updateGraph(){
-    this.chart.data.datasets[0].data = this.newPassing;
-    this.chart.update();
   }
 
   createChart() {
@@ -131,6 +131,23 @@ export class BuildsComponent implements OnInit {
         }
       }
     });
+  }
+
+  updateGraph(){
+    this.chart.data.datasets[0].data = this.newPassing;
+    this.chart.update();
+  }
+
+  toHHMM(totalSeconds){
+    var hours = Math.floor(totalSeconds / 1000 / 60 / 60);
+    var minutes = Math.floor(totalSeconds / 1000 / 60 % 60);
+    var content = hours + " hr - " + minutes + " min";
+   	return content;
+  }
+
+  getPassRate(total, failed){
+    var passRate = Math.floor(((total-failed) * 100) / total);
+    return passRate+"%";
   }
 
 }

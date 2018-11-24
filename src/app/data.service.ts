@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { jobsData}    from './jobs/jobs.component';
 import { buildsData}    from './builds/builds.component';
 
@@ -9,23 +10,23 @@ import { buildsData}    from './builds/builds.component';
 
 export class DataService {
 
+  /*httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type, Accept',
+      'Access-Control-Allow-Methods':'GET, POST, PUT, DELETE, OPTIONS'
+    })
+  };*/
+
   constructor(private http: HttpClient) { }
 
-  getJobs() {
-    return this.http.get('https://ghibliapi.herokuapp.com/films');
+  getJobs(){
+    return this.http.get<jobsData[]>('http://192.168.189.23:8080/job/');
   }
 
-  getJobs2(){
-    //http://192.168.189.41:8080/job/
-    return this.http.get<jobsData[]>('https://ghibliapi.herokuapp.com/films');
-  }
-
-  getBuilds() {
-    return this.http.get('https://ghibliapi.herokuapp.com/people');
-  }
-
-  getBuilds2() {
-    return this.http.get<buildsData[]>('https://ghibliapi.herokuapp.com/people');
+  getBuilds(jobId) {
+    return this.http.get<buildsData[]>('http://192.168.189.23:8080/job/'+jobId+'/builds');
   }
 
 }

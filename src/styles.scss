@@ -18,6 +18,32 @@ a.blue-icon, a.blue-icon:hover{
     background-color: #1771b9;
 }
 
+.blue-color{
+    background-color: #1771b9;
+}
+
+.red-color{
+    background-color: #c44646;
+}
+
+.green-color{
+    background-color: #39b984;
+}
+
+.no-radius{
+    border-radius: 0px;
+}
+
+.status{
+    padding: 15px;
+    width: 100px;
+}
+
+.results{
+    padding: 15px;
+    width: 50px;
+}
+
 a.custom-link{
     color:rgba(0,0,0,.87);
 }
