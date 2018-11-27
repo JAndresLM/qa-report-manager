@@ -46,11 +46,30 @@ export class JobsComponent implements OnInit {
    	return content;
   }
 
+  getPassRate(total, failed){
+    var passRate = Math.floor(((total-failed) * 100) / total);
+    return passRate+"%";
+  }
+
+  getNameStatus(color){
+    var newStatus ;
+    if (color=='blue')
+      newStatus = 'SUCCESS'
+    else if (color=='yellow')
+      newStatus = 'UNSTABLE'
+    else if (color=='red')
+      newStatus = 'FAILURE'
+    else
+      newStatus = 'PROCESSING'
+    return newStatus;
+  }
+
 }
 
 export interface jobsData {
   id: string;
-  title: string;
-  description: string;
-  director: string;
+  color: string;
+  name: string;
+  date: string;
+  duration: string;
 }

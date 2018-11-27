@@ -4,7 +4,7 @@
       <div class="uk-width-1-3"></div>
       <div class="uk-width-1-3">
         <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by keywords">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by Status Or Job Name">
         </mat-form-field>
       </div>
       <div class="uk-width-1-3"></div>
@@ -16,9 +16,16 @@
       <mat-table [dataSource]="dataSource" matSort>
         <!-- status Column -->
         <ng-container matColumnDef="color">
-          <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <a class="uk-badge status  blue-color">{{row.color}}</a>
+            <a 
+              class="uk-badge status" 
+              [class.green-color]="row.color == 'blue'"
+              [class.yellow-color]="row.color == 'yellow'"
+              [class.red-color]="row.color == 'red'"
+            >
+            {{getNameStatus(row.color)}}
+            </a>
           </mat-cell>
         </ng-container>
 
@@ -32,39 +39,41 @@
 
         <!-- Last Execution Column -->
         <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Execution </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Last Execution </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.builds[0].date | date : 'medium'}} </mat-cell>
         </ng-container>
 
         <!-- Duration Column -->
         <ng-container matColumnDef="duration">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Duration </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{toHHMM(row.builds[0].duration)}} </mat-cell>
         </ng-container>
 
         <!-- Results Column -->
         <ng-container matColumnDef="results">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Test Results </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Last Test Results </mat-header-cell>
           <mat-cell *matCellDef="let row">
               <a class="uk-badge results blue-color no-radius">{{row.builds[0].buildReport.totalTests}}</a>
               <a class="uk-badge results green-color no-radius">{{row.builds[0].buildReport.totalTests-row.builds[0].buildReport.failedTests}}</a>
               <a class="uk-badge results red-color no-radius">{{row.builds[0].buildReport.failedTests}}</a>
-              <a class="uk-badge results blue-color no-radius">{{row.builds[0].buildReport.totalTests}}%</a>
+              <a class="uk-badge results yellow-color no-radius">{{getPassRate(row.builds[0].buildReport.totalTests,row.builds[0].buildReport.failedTests)}}</a>
           </mat-cell>
         </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
           <mat-cell *matCellDef="let row">
-              <a class="uk-icon-button" routerLink="jobs/{{row.id}}/builds" uk-icon="forward"></a>
+              <a mat-raised-button class="custom-link" routerLink="jobs/{{row.id}}/builds">
+                See History <a uk-icon="forward"></a>
+              </a>
           </mat-cell>
         </ng-container>
         
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
     </div>
   </div>
 </div>

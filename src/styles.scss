@@ -30,6 +30,14 @@ a.blue-icon, a.blue-icon:hover{
     background-color: #39b984;
 }
 
+.yellow-color{
+    background-color: #e8b92e;
+}
+
+.gray-color{
+    background-color: #5d656b;
+}
+
 .no-radius{
     border-radius: 0px;
 }
@@ -46,6 +54,7 @@ a.blue-icon, a.blue-icon:hover{
 
 a.custom-link{
     color:rgba(0,0,0,.87);
+    text-decoration: none;
 }
 
 a.custom-link:hover{
@@ -87,4 +96,8 @@ table {
     font-size: 16px;
     color: #1771b9;
     font-weight: bolder;
+}
+
+mat-footer-row, mat-header-row, mat-row {
+    min-width: 1280px;
 }

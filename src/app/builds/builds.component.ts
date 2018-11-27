@@ -154,12 +154,12 @@ export class BuildsComponent implements OnInit {
 
 export interface buildsData {
   status: string;
-  build_number: string;
+  name: string;
   date: string;
   duration: string;
-  total_tcs: string;
+  totalTests: string;
   passed_tcs: string;
-  failed_tcs: string;
+  failedTests: string;
   pass_rate: string;
   reports: string;
 }

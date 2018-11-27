@@ -36,7 +36,14 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
           <!--<mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>-->
           <mat-cell *matCellDef="let row">
-            <a class="uk-badge status green-color">{{row.result}}</a>
+            <a 
+              class="uk-badge status"
+              [class.green-color]="row.result == 'SUCCESS'"
+              [class.yellow-color]="row.result == 'UNSTABLE'"
+              [class.red-color]="row.result == 'FAILURE'"
+            >
+              {{row.result}}
+            </a>
           </mat-cell>
         </ng-container>
 
@@ -87,8 +94,9 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Report Options </mat-header-cell>
           <!--<mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.reports}} </mat-cell>-->
           <mat-cell *matCellDef="let row" [style.color]="row.color">
-            <a class="uk-icon-button" uk-icon="forward" href="{{row.url}}" target="_blank"></a>
-            <a class="uk-icon-button" uk-icon="download"></a>
+            <a mat-raised-button class="custom-link" href="{{row.url}}" target="_blank">
+              Open In Jenkins <a uk-icon="forward"></a>
+            </a>
           </mat-cell>
         </ng-container>
 
@@ -97,7 +105,7 @@
         </mat-row>
       </mat-table>
 
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
     </div>
     <div class="example-container" [hidden]="!isGraphDisplayed()">
         <div *ngIf="chart">
