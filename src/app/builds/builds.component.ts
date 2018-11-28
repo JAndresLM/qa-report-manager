@@ -51,7 +51,7 @@ export class BuildsComponent implements OnInit {
   job$: Object;
   buildsListData: buildsData[] = [];
 
-  chart = [];
+  chart = new Chart('canvas',{});
   newPassing = [50, 80, 75, 98, 33, 45, 75, 40, 11, 75, 44, 37]
 
   constructor(private route: ActivatedRoute, private data: DataService) {
@@ -62,7 +62,7 @@ export class BuildsComponent implements OnInit {
     this.data.getBuilds(this.job$).subscribe(
       data => {
         this.builds$ = data
-        this.buildsListData = data;
+        this.createDataForTable(data);
         this.dataSource = new MatTableDataSource(this.buildsListData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -87,7 +87,6 @@ export class BuildsComponent implements OnInit {
 
   isGraphDisplayed(): boolean {
     var isDisplayed = this.group_value === "graph";
-    //console.log(isDisplayed);
     return isDisplayed;
   }
 
@@ -147,7 +146,27 @@ export class BuildsComponent implements OnInit {
 
   getPassRate(total, failed){
     var passRate = Math.floor(((total-failed) * 100) / total);
+    if (total==0)
+      passRate=0;
     return passRate+"%";
+  }
+
+  createDataForTable(data){
+    data.forEach(element => {
+      var buildData:buildsData = {
+        status: element.result,
+        name: element.name.substr(element.name.indexOf('#')),
+        date: String(new Date(element.date)).replace(' GMT-0600 (Central Standard Time)',''),
+        duration: this.toHHMM(element.duration),
+        totalTests: element.buildReport.totalTests,
+        passed_tcs: String(element.buildReport.totalTests - element.buildReport.failedTests),
+        failedTests: element.buildReport.failedTests,
+        pass_rate: this.getPassRate(element.buildReport.totalTests, element.buildReport.failedTests),
+        reports: element.url,
+      };
+      this.buildsListData.push(buildData);
+    });
+    console.log(this.buildsListData);
   }
 
 }

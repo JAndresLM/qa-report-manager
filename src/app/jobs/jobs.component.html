@@ -23,6 +23,7 @@
               [class.green-color]="row.color == 'blue'"
               [class.yellow-color]="row.color == 'yellow'"
               [class.red-color]="row.color == 'red'"
+              [class.gray-color]="row.color == 'disabled'"
             >
             {{getNameStatus(row.color)}}
             </a>
@@ -73,7 +74,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[25, 50, 100]"></mat-paginator>
     </div>
   </div>
 </div>

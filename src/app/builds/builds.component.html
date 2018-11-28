@@ -30,7 +30,7 @@
   <div class="uk-card-body">
     <div class="example-container" [hidden]="isGraphDisplayed()">
 
-      <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="desc">
+      <mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="desc">
         <!-- Status Column -->
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef mat-sort-header matSortActive> Status </mat-header-cell>
@@ -38,11 +38,11 @@
           <mat-cell *matCellDef="let row">
             <a 
               class="uk-badge status"
-              [class.green-color]="row.result == 'SUCCESS'"
-              [class.yellow-color]="row.result == 'UNSTABLE'"
-              [class.red-color]="row.result == 'FAILURE'"
+              [class.green-color]="row.status == 'SUCCESS'"
+              [class.yellow-color]="row.status == 'UNSTABLE'"
+              [class.red-color]="row.status == 'FAILURE'"
             >
-              {{row.result}}
+              {{row.status}}
             </a>
           </mat-cell>
         </ng-container>
@@ -50,51 +50,50 @@
         <!-- Build Number Column -->
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Build Number </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.name.substr(-3)}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
         </ng-container>
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.date | date : 'medium'}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
         </ng-container>
 
         <!-- Duration Column -->
         <ng-container matColumnDef="duration">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color"> {{toHHMM(row.duration)}} </mat-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.duration}} </mat-cell>
         </ng-container>
 
         <!-- Total TCs Column -->
         <ng-container matColumnDef="totalTests">
-          <mat-header-cell *matHeaderCellDef> Total TCs </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.buildReport.totalTests}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Total TCs </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.totalTests}} </mat-cell>
         </ng-container>
 
         <!-- Passed TCs Column -->
         <ng-container matColumnDef="passed_tcs">
-          <mat-header-cell *matHeaderCellDef> Passed TCs </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.buildReport.totalTests-row.buildReport.failedTests}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Passed TCs </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.passed_tcs}} </mat-cell>
         </ng-container>
 
         <!-- Failed TCs Column -->
         <ng-container matColumnDef="failedTests">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Failed TCs </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.buildReport.failedTests}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.failedTests}} </mat-cell>
         </ng-container>
 
         <!-- Pass Rate Column -->
         <ng-container matColumnDef="pass_rate">
-          <mat-header-cell *matHeaderCellDef> Pass Rate </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color"> {{getPassRate(row.buildReport.totalTests,row.buildReport.failedTests)}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Pass Rate </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.pass_rate}} </mat-cell>
         </ng-container>
 
         <!-- Report Options Column -->
         <ng-container matColumnDef="reports">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Report Options </mat-header-cell>
-          <!--<mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.reports}} </mat-cell>-->
-          <mat-cell *matCellDef="let row" [style.color]="row.color">
-            <a mat-raised-button class="custom-link" href="{{row.url}}" target="_blank">
+          <mat-header-cell *matHeaderCellDef> Report Options </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <a mat-raised-button class="custom-link" href="{{row.reports}}" target="_blank">
               Open In Jenkins <a uk-icon="forward"></a>
             </a>
           </mat-cell>

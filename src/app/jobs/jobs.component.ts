@@ -48,6 +48,8 @@ export class JobsComponent implements OnInit {
 
   getPassRate(total, failed){
     var passRate = Math.floor(((total-failed) * 100) / total);
+    if (total==0)
+      passRate=0;
     return passRate+"%";
   }
 
@@ -59,6 +61,8 @@ export class JobsComponent implements OnInit {
       newStatus = 'UNSTABLE'
     else if (color=='red')
       newStatus = 'FAILURE'
+    else if (color=='disabled')
+      newStatus = 'DISABLED'
     else
       newStatus = 'PROCESSING'
     return newStatus;
