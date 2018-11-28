@@ -30,10 +30,10 @@
   <div class="uk-card-body">
     <div class="example-container" [hidden]="isGraphDisplayed()">
 
-      <mat-table [dataSource]="dataSource" matSort>
+      <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="desc">
         <!-- Status Column -->
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header matSortActive> Status </mat-header-cell>
           <!--<mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>-->
           <mat-cell *matCellDef="let row">
             <a 

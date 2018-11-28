@@ -13,9 +13,37 @@ mat-cell, mat-footer-cell, mat-header-cell{
 }
 
 .mat-column-status{
+    width: 10%;
+}
+
+.mat-column-name{
+    width: 12%;
+}
+
+.mat-column-date{
+    width: 19%;
+}
+
+.mat-column-duration{
+    width: 14%;
+}
+
+.mat-column-totalTests{
     width: 7%;
 }
 
+.mat-column-passed_tcs{
+    width: 7%;
+}
+
+.mat-column-failedTests{
+    width: 7%;
+}
+
+.mat-column-pass_rate{
+    width: 12%;
+}
+
 .mat-column-reports{
-    width: 13%;
+    width: 17%;
 }
