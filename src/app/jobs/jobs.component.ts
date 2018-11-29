@@ -25,7 +25,7 @@ export class JobsComponent implements OnInit {
     this.data.getJobs().subscribe(
       data => {
         this.jobs$ = data;
-        this.jobsListData = data;
+        this.createDataForJobsTable(data);
         this.dataSource = new MatTableDataSource(this.jobsListData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -50,7 +50,7 @@ export class JobsComponent implements OnInit {
     var passRate = Math.floor(((total-failed) * 100) / total);
     if (total==0)
       passRate=0;
-    return passRate+"%";
+    return passRate;
   }
 
   getNameStatus(color){
@@ -68,12 +68,34 @@ export class JobsComponent implements OnInit {
     return newStatus;
   }
 
+  createDataForJobsTable(data){
+    data.forEach(element => {
+      var jobData:jobsData = {
+        id: element.id,
+        color: this.getNameStatus(element.color),
+        name: element.name,
+        date: new Date(element.builds[0].date),
+        duration: this.toHHMM(element.builds[0].duration),
+        total: element.builds[0].buildReport.totalTests,
+        passed: element.builds[0].buildReport.totalTests - element.builds[0].buildReport.failedTests,
+        failed: element.builds[0].buildReport.failedTests,
+        pass_rate: this.getPassRate(element.builds[0].buildReport.totalTests, element.builds[0].buildReport.failedTests),
+      };
+      this.jobsListData.push(jobData);
+    });
+    console.log(this.jobsListData);
+  }
+
 }
 
 export interface jobsData {
   id: string;
   color: string;
   name: string;
-  date: string;
+  date: Date;
   duration: string;
+  total: Number;
+  passed: Number;
+  failed: Number;
+  pass_rate: Number;
 }

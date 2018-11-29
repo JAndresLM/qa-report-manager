@@ -148,18 +148,18 @@ export class BuildsComponent implements OnInit {
     var passRate = Math.floor(((total-failed) * 100) / total);
     if (total==0)
       passRate=0;
-    return passRate+"%";
+    return passRate;
   }
 
   createDataForTable(data){
     data.forEach(element => {
       var buildData:buildsData = {
         status: element.result,
-        name: element.name.substr(element.name.indexOf('#')),
-        date: String(new Date(element.date)).replace(' GMT-0600 (Central Standard Time)',''),
+        name: element.name.substr(element.name.indexOf('#')+1),
+        date: new Date(element.date),
         duration: this.toHHMM(element.duration),
         totalTests: element.buildReport.totalTests,
-        passed_tcs: String(element.buildReport.totalTests - element.buildReport.failedTests),
+        passed_tcs: element.buildReport.totalTests - element.buildReport.failedTests,
         failedTests: element.buildReport.failedTests,
         pass_rate: this.getPassRate(element.buildReport.totalTests, element.buildReport.failedTests),
         reports: element.url,
@@ -173,13 +173,13 @@ export class BuildsComponent implements OnInit {
 
 export interface buildsData {
   status: string;
-  name: string;
-  date: string;
+  name: Number;
+  date: Date;
   duration: string;
-  totalTests: string;
-  passed_tcs: string;
-  failedTests: string;
-  pass_rate: string;
+  totalTests: Number;
+  passed_tcs: Number;
+  failedTests: Number;
+  pass_rate: Number;
   reports: string;
 }
 

@@ -33,7 +33,7 @@
       <mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="desc">
         <!-- Status Column -->
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header matSortActive> Status </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header matSortActive><mat-icon class="example-icon">cached</mat-icon> Status </mat-header-cell>
           <!--<mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>-->
           <mat-cell *matCellDef="let row">
             <a 
@@ -49,49 +49,49 @@
 
         <!-- Build Number Column -->
         <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Build Number </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">bookmark_border</mat-icon> Build Number </mat-header-cell>
+          <mat-cell *matCellDef="let row">#{{row.name}} </mat-cell>
         </ng-container>
 
         <!-- Date Column -->
         <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">date_range</mat-icon> Date </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.date | date : 'medium'}} </mat-cell>
         </ng-container>
 
         <!-- Duration Column -->
         <ng-container matColumnDef="duration">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">alarm</mat-icon> Duration </mat-header-cell>
           <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.duration}} </mat-cell>
         </ng-container>
 
         <!-- Total TCs Column -->
         <ng-container matColumnDef="totalTests">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Total TCs </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">low_priority</mat-icon> Total</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.totalTests}} </mat-cell>
         </ng-container>
 
         <!-- Passed TCs Column -->
         <ng-container matColumnDef="passed_tcs">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Passed TCs </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">done</mat-icon> Passed</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.passed_tcs}} </mat-cell>
         </ng-container>
 
         <!-- Failed TCs Column -->
         <ng-container matColumnDef="failedTests">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Failed TCs </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">clear</mat-icon> Failed</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.failedTests}} </mat-cell>
         </ng-container>
 
         <!-- Pass Rate Column -->
         <ng-container matColumnDef="pass_rate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Pass Rate </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.pass_rate}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="example-icon">bar_chart</mat-icon> Pass Rate </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.pass_rate}}%</mat-cell>
         </ng-container>
 
         <!-- Report Options Column -->
         <ng-container matColumnDef="reports">
-          <mat-header-cell *matHeaderCellDef> Report Options </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><mat-icon class="example-icon">control_camera</mat-icon> Report Options </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <a mat-raised-button class="custom-link" href="{{row.reports}}" target="_blank">
               Open In Jenkins <a uk-icon="forward"></a>
