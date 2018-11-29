@@ -48,6 +48,7 @@ export class BuildsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   job$: Object;
+  jobName = "";
   buildsListData: buildsData[] = [];
 
   chart = new Chart('canvas',{});
@@ -68,6 +69,8 @@ export class BuildsComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.createDataForGraph();
         this.createChart();
+        this.jobName = String(data[0].name);
+        this.jobName = this.jobName.substr(0, this.jobName.indexOf(' #'));
       }
     );
   }

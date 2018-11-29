@@ -1,3 +1,33 @@
+.job-title{
+    /*color: #1771b9;*/
+    font-weight: bold;
+}
+
+#tableHeader{
+    width: 100%;
+
+    tr{
+        align-items: center;
+
+        td{
+            align-items: center;
+
+            h1{
+                margin-top: 10px;
+            }
+
+            #searchInput{
+                margin-top: 3px;
+            }
+        }
+    }
+}
+
+.graph-container{
+    width: 85%;
+    margin: 0 auto;
+}
+
 .selected-toggle{
     color: white;
     background-color: #1771b9;
