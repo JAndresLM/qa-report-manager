@@ -13,7 +13,6 @@ export class JobsComponent implements OnInit {
   displayedColumns = ['color', 'name', 'date', 'duration', 'results', 'actions'];
   dataSource: MatTableDataSource<jobsData>;
 
-  jobs$: Object;
   jobsListData:jobsData[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -24,7 +23,6 @@ export class JobsComponent implements OnInit {
   ngOnInit() {
     this.data.getJobs().subscribe(
       data => {
-        this.jobs$ = data;
         this.createDataForJobsTable(data);
         this.dataSource = new MatTableDataSource(this.jobsListData);
         this.dataSource.paginator = this.paginator;
@@ -83,7 +81,6 @@ export class JobsComponent implements OnInit {
       };
       this.jobsListData.push(jobData);
     });
-    console.log(this.jobsListData);
   }
 
 }

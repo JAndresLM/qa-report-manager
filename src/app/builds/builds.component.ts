@@ -47,11 +47,12 @@ export class BuildsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  builds$: Object;
   job$: Object;
   buildsListData: buildsData[] = [];
 
   chart = new Chart('canvas',{});
+  chartLabelsDate = [];
+  chartDataPassRates = [];
   newPassing = [50, 80, 75, 98, 33, 45, 75, 40, 11, 75, 44, 37]
 
   constructor(private route: ActivatedRoute, private data: DataService) {
@@ -61,11 +62,11 @@ export class BuildsComponent implements OnInit {
   ngOnInit() {
     this.data.getBuilds(this.job$).subscribe(
       data => {
-        this.builds$ = data
         this.createDataForTable(data);
         this.dataSource = new MatTableDataSource(this.buildsListData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.createDataForGraph();
         this.createChart();
       }
     );
@@ -91,15 +92,13 @@ export class BuildsComponent implements OnInit {
   }
 
   createChart() {
-    var labels = ["Nov 01", "Nov 02", "Nov 03", "Nov 04", "Nov 05", "Nov 06", "Nov 07", "Nov 08", "Nov 09", "Nov 10", "Nov 11", "Nov 12"]
-    var passing = [40, 90, 70, 98, 63, 45, 85, 30, 21, 85, 94, 67]
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: labels,
+        labels: this.chartLabelsDate,
         datasets: [{
           label: "Pass Rate Percentage (%)",
-          data: passing,
+          data: this.chartDataPassRates,
           borderColor: "#339966",
           backgroundColor: "#9fdfbf",
           fill: true
@@ -111,15 +110,19 @@ export class BuildsComponent implements OnInit {
         },
         scales: {
           xAxes: [{
-            display: true
+            display: true,
+            ticks:{
+              autoSkip: false
+            }
           }],
           yAxes: [{
             display: true,
             ticks: {
               beginAtZero: true,
-              steps: 5,
-              stepValue: 5,
-              max: 100
+              steps: 1,
+              stepValue: 1,
+              max: 100,
+              autoSkip: false
             }
           }],
         },
@@ -166,7 +169,33 @@ export class BuildsComponent implements OnInit {
       };
       this.buildsListData.push(buildData);
     });
-    console.log(this.buildsListData);
+  }
+
+  createDataForGraph(){
+    this.chartLabelsDate = [];
+    this.chartDataPassRates = [];
+    var temporalLabelsDate = [];
+
+    this.buildsListData.forEach(element => {
+      temporalLabelsDate.push(element.date);
+      var strDate = String(element.date);
+      var shortDate = strDate.substr(0,strDate.indexOf(' GMT'));
+      shortDate = shortDate.substr(3);
+      this.chartLabelsDate.push(shortDate);
+      this.chartDataPassRates.push(element.pass_rate);
+    });
+
+    /*temporalLabelsDate.sort();
+    this.chartLabelsDate.sort();
+    this.chartDataPassRates.sort();
+
+    temporalLabelsDate.forEach(element => {
+      var strDate = String(element);
+      var shortDate = strDate.substr(0,strDate.indexOf(' GMT'));
+      shortDate = shortDate.substr(3);
+      this.chartLabelsDate.push(shortDate);
+    });*/
+
   }
 
 }
